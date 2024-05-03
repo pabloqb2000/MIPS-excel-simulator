@@ -85,7 +85,7 @@ SW $0 $1 22 // Success
 
 @BeqError1
 
-ADDI $1 $ra @here
+ADDI $1 $ra @here+2
 JR $ra
 SW $0 $2 23 // Error
 SW $0 $1 24 // Success

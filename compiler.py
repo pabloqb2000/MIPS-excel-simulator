@@ -47,6 +47,8 @@ def save_address(line, i):
 def get_address(line, i):
     if line == '@here':
         return i+2
+    if line[:6] == '@here+':
+        return i+int(line[6:])
     elif line in addresses:
         return addresses[line]
     else:
