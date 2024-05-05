@@ -1,7 +1,7 @@
 // Clear registers and load data
-ADD $0 $0 $1
-ADD $0 $0 $2
-ADD $0 $0 $3
+MOVE $0 $1
+MOVE $0 $2
+MOVE $0 $3
 LW $0 $1 0
 LW $0 $2 1
 
@@ -59,8 +59,8 @@ SW $0 $3 17
 
 
 // Test jumps
-ADDI $0 $1 1
-ADDI $0 $2 -1
+LOADI $1 1
+LOADI $2 -1
 
 J @JumpSuccess
 SW $0 $2 18 // Error
@@ -70,9 +70,9 @@ SW $0 $1 19 // Success
 
 
 // Test branches
-ADDI $0 $3 -19
-ADDI $0 $4 -19
-ADDI $0 $5 19
+LOADI $3 -19
+LOADI $4 -19
+LOADI $5 19
 
 BEQ $3 $4 @BeqSuccess1
 SW $0 $2 20 // Error
@@ -92,10 +92,10 @@ SW $0 $1 24 // Success
 
 
 // Reset registers
-ADD $0 $0 $1
-ADD $0 $0 $2
-ADD $0 $0 $3
-ADD $0 $0 $4
-ADD $0 $0 $5
-ADD $0 $0 $ra
+MOVE $0 $1
+MOVE $0 $2
+MOVE $0 $3
+MOVE $0 $4
+MOVE $0 $5
+MOVE $0 $ra
 

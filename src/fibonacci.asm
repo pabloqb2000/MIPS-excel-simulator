@@ -6,7 +6,7 @@
 LW $0 $t9 0
 LW $0 $t0 1
 LW $0 $t1 2
-ADDI $0 $t8 3
+LOADI $t8 3
 
 @LoopBegin
 BEQ $t9 $0 @LoopEnd
@@ -20,8 +20,8 @@ ADD $t2 $0 $t0
 SW $t8 $t1 0
 
 // Update counters
-SUBI $t9 $t9 1
-ADDI $t8 $t8 1
+DEC $t9
+INC $t8
 
 J @LoopBegin
 @LoopEnd

@@ -60,12 +60,52 @@ def is_instruction(line):
 def is_address(line):
     return len(line) > 1 and line[0] == '@'
 
-def preprocess(code):
-    code = code.split("//")[0]
-    code = code.strip()
-    code = code.lower()
-    code = re.sub(' +', ' ', code)
-    return code    
+def registers_match(match):
+    label, var1, var2 = match.groups()
+    if var1 == var2:
+        return 'new_label {}, {}'.format(var1, var2)
+    else:
+        return match.group()
+
+def preprocess(lines):
+    result = []
+    for line in lines:
+        line = line.split("//")[0]
+        line = line.strip()
+        line = line.lower()
+        line = re.sub(' +', ' ', line)
+
+        # MOVE
+        line = re.sub('move', 'add $0', line)
+
+        # LOADI
+        line = re.sub('loadi', 'addi $0', line)
+
+        # JAL
+        if line.startswith('jal'):
+            result.append('addi $0 $ra @here+2')
+            line = 'j' + line[3:]
+        
+        # INC and DEC
+        line = re.sub(
+            r'inc (\$[a-zA-Z0-9_]+)', 
+            lambda x: 'addi {} {} 1'.format(
+                x.groups()[0],
+                x.groups()[0],
+            ), 
+            line
+        )
+        line = re.sub(
+            r'dec (\$[a-zA-Z0-9_]+)', 
+            lambda x: 'addi {} {} -1'.format(
+                x.groups()[0],
+                x.groups()[0],
+            ), 
+            line
+        )
+
+        result.append(line)
+    return result    
 
 def get_register(reg):
     if reg in registers:
@@ -138,7 +178,7 @@ if __name__ == '__main__':
         file, ext = filename.split('.')
         binary = decimal = ''
         with open(src_path + filename) as f:
-            lines = [preprocess(l) for l in f.readlines()]
+            lines = preprocess(f.readlines())
             lines = [l for l in lines if l != '']
 
             i = 0

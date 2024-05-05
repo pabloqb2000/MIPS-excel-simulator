@@ -4,9 +4,9 @@
 
 // Initialization
 LW $0 $t9 0
-ADD $0 $0 $t4
-ADDI $0 $t1 4
-ADDI $0 $t2 1
+MOVE $0 $t4
+LOADI $t1 4
+LOADI $t2 1
 
 @LoopBegin
 BEQ $t9 $0 @LoopEnd
@@ -19,7 +19,7 @@ MULTI $t1 $t1 -1
 ADDI $t2 $t2 2
 
 // Decrease counter
-SUBI $t9 $t9 1
+DEC $t9
 
 J @LoopBegin
 @LoopEnd
