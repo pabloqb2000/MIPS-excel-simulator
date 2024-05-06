@@ -1,19 +1,19 @@
-// Calculate the factorial of the first number in memory
-// The result is then stored in memory right after
+; Calculate the factorial of the first number in memory
+; The result is then stored in memory right after
 
-// Load number
+; Load number
 LW $0 $a0 0
 
-// Call function
+; Call function
 JAL @factorial
 
-// Store result
+; Store result
 SW $0 $v0 1
 
 J @End
 
 
-// Factorial function
+; Factorial function
 @factorial
     LOADI $v0 1
     

@@ -70,7 +70,7 @@ def registers_match(match):
 def preprocess(lines):
     result = []
     for line in lines:
-        line = line.split("//")[0]
+        line = line.split(";")[0]
         line = line.strip()
         line = line.lower()
         line = re.sub(' +', ' ', line)
